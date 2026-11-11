@@ -1,0 +1,5 @@
+// 1
+export JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home; export ANDROID_HOME="$HOME/Library/Android/sdk"; export ANDROID_SDK_ROOT="$ANDROID_HOME"; export PATH="$JAVA_HOME/bin:$ANDROID_HOME/platform-tools:$PATH"; npx expo prebuild --platform android && cd android && ./gradlew assembleRelease
+
+//2
+ADB="$HOME/Library/Android/sdk/platform-tools/adb"; APK="android/app/build/outputs/apk/release/app-release.apk"; "$ADB" install -r "$APK" && "$ADB" shell am force-stop com.paytrack.app && "$ADB" shell monkey -p com.paytrack.app -c android.intent.category.LAUNCHER 1 >/dev/null && sleep 4 && "$ADB" exec-out screencap -p > /tmp/paytrack-styled-screen.png && ls -lh "$APK" /tmp/paytrack-styled-screen.png && "$ADB" shell dumpsys activity activities | grep -E 'mResumedActivity|topResumedActivity'
