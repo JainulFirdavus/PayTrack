@@ -3,6 +3,13 @@
 # dependencies
 node_modules/
 
+# Expo
+.expo/
+dist/
+dist-mobile/
+web-build/
+expo-env.d.ts
+
 # Native
 .kotlin/
 *.orig.*
