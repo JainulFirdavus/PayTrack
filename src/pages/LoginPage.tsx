@@ -48,7 +48,7 @@ import { useWorkspace } from '../context/WorkspaceContext';
 export default function LoginPage() {
   const { user, login } = useAuth();
   const { updateSettings } = useWorkspace();
-  const [name, setName] = useState('Jordan Lee');
+  const [name, setName] = useState('');
   const [error, setError] = useState('');
   const location = useLocation();
   const navigate = useNavigate();
@@ -67,6 +67,6 @@ export default function LoginPage() {
     navigate(destination, { replace: true });
   };
 
-  return <main className="login-screen"><div className="login-layout"><section className="login-brand-panel"><div className="brand login-brand"><span className="brand-mark"><Building2 size={17} /></span><span>SITE LEDGER</span></div><div className="login-message"><span className="eyebrow">CONSTRUCTION FINANCE, CLEARLY</span><h1>Every site.<br />One clear picture.</h1><p>Keep estimates, site costs, client claims and due dates together, wherever the work takes you.</p></div><span className="login-footer-label">BUILT FOR THE PEOPLE WHO BUILD THINGS.</span></section><section className="login-form-panel"><div className="login-form-inner"><span className="eyebrow">DEMO WORKSPACE</span><h2>Welcome back</h2><p className="muted-copy">Enter a name to open your local construction dashboard.</p><form className="form-stack" onSubmit={submit}><label>Your name<input autoComplete="name" autoFocus onChange={(event) => { setName(event.target.value); setError(''); }} placeholder="e.g. Jordan Lee" value={name} /></label>{error && <span className="form-error">{error}</span>}<button className="button button-primary login-submit" type="submit">Open workspace <ArrowRight size={16} /></button></form><p className="login-local-note">No password or account service is connected. Demo data remains in this browser.</p></div></section></div></main>;
+  return <main className="login-screen"><div className="login-layout"><section className="login-brand-panel"><div className="brand login-brand"><span className="brand-mark"><Building2 size={17} /></span><span>SITE LEDGER</span></div><div className="login-message"><span className="eyebrow">CONSTRUCTION FINANCE, CLEARLY</span><h1>Every site.<br />One clear picture.</h1><p>Keep estimates, site costs, client claims and due dates together, wherever the work takes you.</p></div><span className="login-footer-label">BUILT FOR THE PEOPLE WHO BUILD THINGS.</span></section><section className="login-form-panel"><div className="login-form-inner"><span className="eyebrow">DEMO WORKSPACE</span><h2>Welcome back</h2><p className="muted-copy">Enter a name to open your local construction dashboard.</p><form className="form-stack" onSubmit={submit}><label>Your name<input autoComplete="name" autoFocus onChange={(event) => { setName(event.target.value); setError(''); }} placeholder="e.g. username" value={name} /></label>{error && <span className="form-error">{error}</span>}<button className="button button-primary login-submit" type="submit">Open workspace <ArrowRight size={16} /></button></form><p className="login-local-note">No password or account service is connected. Demo data remains in this browser.</p></div></section></div></main>;
 }
  

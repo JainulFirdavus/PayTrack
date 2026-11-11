@@ -29,7 +29,7 @@ const initialData = (): WorkspaceData => {
   } catch {
     localStorage.removeItem(DATA_KEY);
   }
-  return { sites: demoSites, records: demoRecords, settings: { currency: 'USD', userName: 'Jordan Lee' } };
+  return { sites: demoSites, records: demoRecords, settings: { currency: 'USD', userName: 'username' } };
 };
 
 const WorkspaceContext = createContext<WorkspaceContextValue | null>(null);
