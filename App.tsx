@@ -1,27 +1,31 @@
 import Constants from 'expo-constants';
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 import { WebView } from 'react-native-webview';
 
-const configuredUrl = process.env.EXPO_PUBLIC_WEB_APP_URL?.trim();
 const expoHost = Constants.expoConfig?.hostUri;
 const developmentHost = expoHost
   ? new URL(`http://${expoHost}`).hostname
   : null;
-const webAppUrl = configuredUrl || (developmentHost ? `http://${developmentHost}:5173` : null);
+const developmentWebAppUrl = process.env.EXPO_PUBLIC_WEB_APP_URL?.trim()
+  || (developmentHost ? `http://${developmentHost}:5173` : null);
+const bundledAndroidAppUrl = 'file:///android_asset/webapp/index.html';
 
 export default function App() {
   const [loadError, setLoadError] = useState('');
   const [reloadKey, setReloadKey] = useState(0);
+  const webAppUrl = __DEV__ ? developmentWebAppUrl : Platform.OS === 'android' ? bundledAndroidAppUrl : null;
 
   if (!webAppUrl) {
     return (
       <View style={styles.messageScreen}>
         <StatusBar style="dark" />
-        <Text style={styles.title}>Web app URL is not configured</Text>
+        <Text style={styles.title}>App content is unavailable</Text>
         <Text style={styles.message}>
-          Set EXPO_PUBLIC_WEB_APP_URL to the hosted web app address, then restart Expo.
+          {__DEV__
+            ? 'Start the web app locally and set EXPO_PUBLIC_WEB_APP_URL, then restart Expo.'
+            : 'This standalone build includes the bundled web app for Android.'}
         </Text>
       </View>
     );
@@ -33,7 +37,9 @@ export default function App() {
         <StatusBar style="dark" />
         <Text style={styles.title}>Can’t connect to the web app</Text>
         <Text style={styles.message}>
-          {loadError} Make sure the web app is running and reachable at {webAppUrl}.
+          {__DEV__
+            ? `${loadError} Make sure the web app is running and reachable at ${webAppUrl}.`
+            : `${loadError} The bundled app could not be opened.`}
         </Text>
         <Pressable onPress={() => { setLoadError(''); setReloadKey((key) => key + 1); }} style={styles.retryButton}>
           <Text style={styles.retryText}>Try again</Text>
@@ -50,7 +56,10 @@ export default function App() {
         onError={(event) => setLoadError(event.nativeEvent.description)}
         onHttpError={(event) => setLoadError(`The web app returned HTTP ${event.nativeEvent.statusCode}.`)}
         onLoadStart={() => setLoadError('')}
-        originWhitelist={['http://*', 'https://*']}
+        originWhitelist={['file://*', 'http://*', 'https://*']}
+        allowFileAccess={!__DEV__}
+        domStorageEnabled
+        javaScriptEnabled
         source={{ uri: webAppUrl }}
         startInLoadingState
         style={styles.webView}

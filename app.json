@@ -3,6 +3,9 @@
     "name": "PayTrack",
     "slug": "paytrack",
     "version": "1.0.0",
+    "plugins": [
+      "./plugins/withBundledWebApp"
+    ],
     "android": {
       "package": "com.paytrack.app"
     }

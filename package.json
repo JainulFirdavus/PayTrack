@@ -25,6 +25,7 @@
   "scripts": {
     "start": "vite --host 0.0.0.0",
     "build": "tsc --noEmit && vite build",
+    "build:mobile": "tsc --noEmit && VITE_USE_HASH_ROUTER=true vite build --mode mobile --base ./ --outDir dist-mobile",
     "preview": "vite preview --host 0.0.0.0",
     "expo": "expo start",
     "android": "expo run:android",

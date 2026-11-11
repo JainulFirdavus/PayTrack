@@ -47,9 +47,9 @@ above accordingly.
 
 ## Run the web app and Expo Go locally
 
-The Expo WebView needs the Vite web app to be running and reachable on the local
-network. Set `EXPO_PUBLIC_WEB_APP_URL` in the ignored `.env.local` file to this
-computer's Wi-Fi IP address:
+Expo Go development loads the Vite web app over the local network. Set
+`EXPO_PUBLIC_WEB_APP_URL` in the ignored `.env.local` file to this computer's Wi-Fi
+IP address:
 
 ```dotenv
 EXPO_PUBLIC_WEB_APP_URL=http://<computer-lan-ip>:5173
@@ -70,12 +70,18 @@ npx expo start --clear --go --lan
 Keep both processes running. Connect the phone to the same Wi-Fi and open the
 Expo Go address printed in the terminal.
 
-## Build an Android APK
+## Build a standalone Android APK
 
-The Android project is generated from Expo configuration. Generate it if the
-`android/` directory is missing:
+The APK bundles the production web app inside the Android application. It runs in
+the app's embedded WebView and does not need a browser, a hosted site, the Vite
+server, or a Wi-Fi connection.
+
+First generate the optimized, self-contained mobile web bundle and the Android
+project. The Expo config plugin copies the web bundle into Android assets during
+prebuild:
 
 ```sh
+npm run build:mobile
 npx expo prebuild --platform android
 ```
 
@@ -121,11 +127,11 @@ allow installation from the file manager or browser used to open the APK.
 
 ## Important: the APK uses the local web server
 
-The APK loads the address configured by `EXPO_PUBLIC_WEB_APP_URL`; it does not
-include a copy of the web app. To use it, keep the Vite server running, keep the
-phone and computer on the same Wi-Fi, and make sure the computer's IP address in
-`.env.local` is still correct. If the IP changes, update `.env.local` and rebuild
-the APK.
+`EXPO_PUBLIC_WEB_APP_URL` is used only by Expo Go during development. Release APKs
+load the web UI bundled at `android/app/src/main/assets/webapp/` and ignore that
+development URL. Whenever you change the web UI, run `npm run build:mobile` and
+`npx expo prebuild --platform android` again before rebuilding the APK so the
+latest files are copied into the app.
 
 This local release build uses the generated Android debug signing key. It is
 suitable for local installation and testing, but not for publishing to Google
