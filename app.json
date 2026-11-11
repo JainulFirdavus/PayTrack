@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "PayTrack",
+    "slug": "paytrack",
+    "version": "1.0.0",
+    "android": {
+      "package": "com.paytrack.app"
+    }
+  }
+}

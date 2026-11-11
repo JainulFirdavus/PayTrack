@@ -1,0 +1,35 @@
+{
+  "name": "paytracker",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "dependencies": {
+    "@expo/vector-icons": "^15.0.2",
+    "@react-native-async-storage/async-storage": "2.2.0",
+    "expo": "^58.0.23",
+    "expo-status-bar": "~58.0.4",
+    "lucide-react": "^1.71.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-native": "0.88.1",
+    "react-native-web": "^0.21.4",
+    "react-native-webview": "14.0.1",
+    "react-router-dom": "^7.18.5"
+  },
+  "devDependencies": {
+    "@types/react": "~19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "typescript": "~6.0.3",
+    "vite": "^8.3.7"
+  },
+  "scripts": {
+    "start": "vite --host 0.0.0.0",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "expo": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "vite --host 0.0.0.0"
+  },
+  "private": true
+}
