@@ -7,7 +7,7 @@ as the browser app.
 ## Requirements
 
 - Node.js and npm
-- macOS with Homebrew
+- Homebrew
 - Java 17
 - Android SDK command-line tools
 - An Android phone and the same Wi-Fi network as the development computer
